@@ -1,4 +1,4 @@
-export const ADD_CAR = 'ADD_CAR';
-export const REMOVE_CAR = 'REMOVE_CAR';
-export const START_CAR = 'START_CAR';
-export const STOP_CAR = 'STOP_CAR';
+export const ADD_MEMBER = 'ADD_MEMBER';
+export const REMOVE_MEMBER = 'REMOVE_MEMBER';
+// export const START_CAR = 'START_CAR';
+// export const STOP_CAR = 'STOP_CAR';
