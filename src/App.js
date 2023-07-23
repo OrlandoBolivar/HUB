@@ -8,12 +8,23 @@ import { Provider } from 'react-redux';
 
 export default function App() {
   useEffect(() => {
-    document.title = 'Digital Garage';
+    document.title = 'HUB Hyde Park';
   }, []);
 
   return (
     <Provider  store= {store}>
+      <h1>HUB HYDE</h1>
+      {/* <Logo></Logo> */}
       <SignInMember />
     </Provider>
   );
 }
+
+// function App() {
+//     return (
+//       <Router>
+
+
+//       </Router>
+//     )
+// 

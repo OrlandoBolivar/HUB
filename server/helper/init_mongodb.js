@@ -4,7 +4,7 @@ const config = require("../config/config");
 console.log(config);
 
 mongoose
-  .connect("mongodb+srv://jfajardobolivar:oU7zFPmZ9aq6WZeT@cluster0.ei2psbc.mongodb.net/?retryWrites=true&w=majority", {
+  .connect(config.DATABASE, {
     useNewUrlParser: true,
   })
   .then(() => {

@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const createError = require("http-errors");
 const morgan = require("morgan");
+const authRoutes=require("./routes/authRoutes")
+const coffeeRoutes=require("./routes/coffeeRoutes")
 require("dotenv").config();
 require("./helper/init_mongodb");
-
 
 const app = express();
 app.use(morgan("dev"));
@@ -12,14 +13,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req,res)=>{
-  res.send("Hello From HUB Backend")
-});
+app.use("/auth",authRoutes);
+app.use("/",coffeeRoutes);
 
 app.use((req, res, next) => {
-  // const error = new Error("Not Found");
-  // error.status = 404;
-  // next(error);
   next(createError.NotFound("This route doesnot exist"));
 });
 

@@ -1,40 +1,49 @@
-const createError = require("http-errors");
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
+const config = require("../config/config");
+const createError = require("http-errors")
 
-// exports.register = async (req, res, next) => {
-//   try {
-//     const { name, email, password } = req.body;
-//     const doesExist = await Customer.findOne({ email: email });
-//     if (doesExist) throw createError.Conflict(`${email} already exist!`);
-//     res.status(200).json({
-//       message: "Register Successful",
-//         });
-//   } catch (error) {
-//     console.log(error);
-//     next(error);
-//   }
-// };
+exports.register = async (req, res, next) => {
+  const { username, pin } = req.body;
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      throw createError.Conflict('Username already exists');
+    }
+    const user = await User.create({ username, pin });
+    res.json(user);
+  } catch (error) {
+    // Handle database-related errors
+    if (error.name === 'ValidationError') {
+      return next(createError.BadRequest('Invalid data. Please check your input.'));
+    }
+    next(error);
+  }
+}
 
-// exports.login = async (req, res, next) => {
-//   try {
-//     console.log(req.body);
-//     const { email, password } = req.body;
-//     const customer = await Customer.findOne({ email: email });
+exports.login = async (req, res, next) => {
+  const { username, pin } = req.body;
+  try {
+    const user = await User.findOne({ username });
 
-//     if (!customer) throw createError.NotFound("User not registered");
+    if (!user) {
+      throw createError.Unauthorized('Invalid username or pin');
+    }
 
-//     const isMatch = await customer.isValidPassword(password);
-//     if (!isMatch) throw createError.Unauthorized("Username/Password not valid");
+    const isPinValid = await user.isCorrectPin(pin);
 
-//     console.log(customer);
+    if (!isPinValid) {
+      throw createError.Unauthorized('Invalid username or pin');
+    }
 
-//     const { _id, role, name } = customer;
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
+      expiresIn: '1h', // Token expires in 1 hour
+    });
 
-//     res.status(200).json({
-//       message: "Login Successful",
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
+    res.json({ token });
+  } catch (error) {
+    next(error);
+  }
+}
 
