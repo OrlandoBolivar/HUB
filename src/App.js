@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
-import CarComponent from './components/CarComponent';
+import reducers from './utils/reducers.js'
+import SignInMember from './components/SignInMember';
+import store from './utils/store.js';
+import { Provider } from 'react-redux';
 // Importing our theme provider which will make our global state available to child components
-import CarProvider from './utils/CarContext';
+// import CarProvider from './utils/CarContext';
 
 export default function App() {
   useEffect(() => {
@@ -9,8 +12,8 @@ export default function App() {
   }, []);
 
   return (
-    <CarProvider>
-      <CarComponent />
-    </CarProvider>
+    <Provider  store= {store}>
+      <SignInMember />
+    </Provider>
   );
 }
