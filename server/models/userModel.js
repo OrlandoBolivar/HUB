@@ -8,18 +8,18 @@ const userSchema = new Schema(
       unique: true,
     },
     pin: {
-      type: Number,
+      type: String,
       required: true,
     },
-  }, { timestamps: true }
+  },
+  { timestamps: true }
 );
 
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('pin')) {
     const saltRounds = 10;
-    this.pin = await bcrypt.hash(this.pin.toString(), saltRounds);
+    this.pin = await bcrypt.hash(this.pin, saltRounds);
   }
-
   next();
 });
 

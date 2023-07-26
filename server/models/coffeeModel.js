@@ -1,29 +1,32 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-const coffeeSchema = new Schema({
+const coffeeSchema = new Schema(
+  {
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User', // 'User' refers to the model name for the User schema
-        required: true,
+      type: Schema.Types.ObjectId,
+      ref: "User", // 'User' refers to the model name for the User schema
+      required: true,
     },
-    coffee:
-    {
-        type: String,
-    }
-    ,
-    milk:
-    {
-        type: String,
-    }
-    ,
-    size:
-    {
-        type: String,
-    }
-    ,
+    coffee: {
+      type: String,
+      required: true,
+    },
+    milk: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: true,
+    },
     sugar: {
-        type: Number,
+      type: Number,
+      required: true,
     },
-},{timestamps:true});
+  },
+  { timestamps: true }
+);
 
-module.exports = coffeeSchema;
+const Coffee = model("Coffee", coffeeSchema);
+
+module.exports = Coffee;

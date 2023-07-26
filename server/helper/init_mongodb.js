@@ -6,7 +6,8 @@ console.log(config);
 mongoose
   .connect(config.DATABASE, {
     useNewUrlParser: true,
-  })
+    useUnifiedTopology: true,
+    useCreateIndex: true,  })
   .then(() => {
     console.log("DB Connection Successful!!");
   })
