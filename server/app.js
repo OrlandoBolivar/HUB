@@ -3,7 +3,9 @@ const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const { typeDefs, resolvers } = require('./schema/index');
 const config = require("./config/config");
+const jwt = require('jsonwebtoken'); // Import the jwt library
 const app = express();
+const User = require("./models/userModel")
 
 // Connect to your MongoDB database
 mongoose.connect(config.DATABASE, {
@@ -16,7 +18,20 @@ async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-  });
+    context: async ({ req }) => {
+      const token = req.headers.authorization || '';
+      try {
+        const decodedToken = await jwt.verify(token.replace('Bearer ', ''), config.JWT_SECRET);
+        const user = await User.findById(decodedToken.userId);
+        console.log(user, "user in context function");
+        return { user };
+      } catch (error) {
+        console.log(error);
+        return {};
+      }
+    }
+  }
+  );
 
   await server.start(); // Await the server start before applying the middleware
   server.applyMiddleware({ app });

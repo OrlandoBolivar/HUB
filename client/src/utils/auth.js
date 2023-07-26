@@ -15,34 +15,31 @@ class AuthService {
     return !!token && !this.isTokenExpired(token); // handwaiving here
   }
 
-  // check if token is expired
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
+      // Check if the token's expiration timestamp is less than the current time in seconds
       if (decoded.exp < Date.now() / 1000) {
-        return true;
-      } else return false;
+        return true; // Token has expired
+      } else {
+        return false; // Token is still valid
+      }
     } catch (err) {
-      return false;
+      return false; // If there's an error decoding the token, consider it as expired
     }
   }
+  
 
   getToken() {
-    // Retrieves the user token from localStorage
     return localStorage.getItem('id_token');
   }
 
   login(idToken) {
-    // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
   }
 
   logout() {
-    // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
-    // this will reload the page and reset the state of the application
-    window.location.assign('/');
   }
 }
 

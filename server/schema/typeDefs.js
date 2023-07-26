@@ -4,40 +4,45 @@ const typeDefs = gql`
   type User {
     _id: ID!
     username: String!
-    coffeeCount: Int
-    savedCoffees: [Coffee]
+    createdAt: String!
+    updatedAt: String!
+    coffees: [Coffee!]
   }
 
   type Coffee {
-    coffeeId: ID!
-    typeOfCoffee: String
-    typeMilk: String
-    size: String
-    sugar: String
-  }
-
-  type Auth {
-    token: ID!
-    user: User
+    _id: ID!
+    user: User!
+    coffee: String!
+    milk: String!
+    size: String!
+    sugar: Int!
+    createdAt: String!
+    updatedAt: String!
   }
 
   input CoffeeInput {
-    typeOfCoffee: String!
-    typeMilk: String!
-    coffeeId: String!
+    coffee: String!
+    milk: String!
     size: String!
-    sugar: String!
+    sugar: Int!
+  }
+
+  type Auth {
+    token: String!
+    user: User!
   }
 
   type Query {
     me: User
+      getCoffee(_id: ID!): Coffee
+      getCoffees: [Coffee!]!
   }
 
   type Mutation {
     login(username: String!, pin: String!): Auth
     addUser(username: String!, pin: String!): Auth
-    saveCoffee(coffeeData: CoffeeInput!): User  # Corrected from 'coffeeInput' to 'CoffeeInput'
-    removeCoffee(coffeeId: ID!): User
+    saveCoffee(coffeeData: CoffeeInput!): Coffee
+    removeCoffee(_id: ID!): Coffee
   }
 `;
 

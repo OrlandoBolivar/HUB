@@ -28,14 +28,10 @@ export const SAVE_COFFEE = gql`
   mutation saveCoffee($coffeeData: CoffeeInput!) {
     saveCoffee(coffeeData: $coffeeData) {
       _id
-      username
-      savedCoffees {
-        coffeeId
-        typeOfCoffee
-        typeMilk
-        size
-        sugar
-      }
+      coffee
+      milk
+      size
+      sugar
     }
   }
 `;
@@ -44,14 +40,11 @@ export const REMOVE_COFFEE = gql`
   mutation removeCoffee($coffeeId: ID!) {
     removeCoffee(coffeeId: $coffeeId) {
       _id
-      username
-      savedCoffees {
-        coffeeId
-        typeOfCoffee
-        typeMilk
-        size
-        sugar
-      }
+      coffee
+      milk
+      size
+      sugar
     }
   }
 `;
+

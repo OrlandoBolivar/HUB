@@ -1,10 +1,10 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const coffeeSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: "User", // 'User' refers to the model name for the User schema
+      ref: 'User',
       required: true,
     },
     coffee: {
@@ -27,6 +27,6 @@ const coffeeSchema = new Schema(
   { timestamps: true }
 );
 
-const Coffee = model("Coffee", coffeeSchema);
+const Coffee = model('Coffee', coffeeSchema);
 
 module.exports = Coffee;
