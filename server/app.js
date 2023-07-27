@@ -8,10 +8,11 @@ const app = express();
 const User = require("./models/userModel")
 
 // Connect to your MongoDB database
-mongoose.connect(config.DATABASE, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(config.DATABASE, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/hub');
 
 // Create an async function to start the Apollo Server
 async function startApolloServer() {
