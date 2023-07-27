@@ -4,6 +4,7 @@ import { QUERY_ME } from '../utils/queries';
 import AuthService from '../utils/auth';
 import { Navigate } from 'react-router-dom';
 import CoffeeForm from '../components/Coffee/CoffeeForm';
+// import Coffee from '../components/Coffee/CoffeeList';
 
 const UserPage = () => {
   const isAuthenticated = AuthService.loggedIn();
@@ -39,6 +40,7 @@ const UserPage = () => {
             <>
               <p>Welcome {user.username}</p>
               <CoffeeForm/>
+            
             </>
           )}
         </>

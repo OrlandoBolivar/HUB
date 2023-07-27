@@ -75,3 +75,19 @@ const AppNavbar = () => {
 };
 
 export default AppNavbar;
+
+    {/* // <div>
+    //   {isAuthenticated ? ( */}
+    //     <>
+    //       <h1>User Page</h1>
+    //       {user && (
+    //         <>
+    //           <p>Welcome {user.username}</p>
+    //           <CoffeeForm/>
+    //         </>
+    //       )}
+    //     </>
+    //   ) : (
+    //     <Navigate to="/" />
+    //   )}
+    // </div>

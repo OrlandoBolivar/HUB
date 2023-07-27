@@ -81,7 +81,6 @@ const SignupForm = () => {
                     <button className="bg-blue-500 text-white rounded-md px-2 py-1" type="submit">Submit</button>
                   </div>
                 </form>
-                <Link to="/register">Register Now</Link>
               </div>
             </div>
           </div>
